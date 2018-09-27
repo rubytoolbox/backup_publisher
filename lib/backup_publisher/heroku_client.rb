@@ -3,6 +3,8 @@
 module BackupPublisher
   class HerokuClient
     class Backup
+      # We don't care about the actual value, just make a boolean out
+      # of the fact whether this is a truthy value
       class PresenceBoolean < Virtus::Attribute
         def coerce(value)
           !!value
