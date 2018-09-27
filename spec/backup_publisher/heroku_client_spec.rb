@@ -31,18 +31,14 @@ RSpec.describe BackupPublisher::HerokuClient do
     let(:expected_backups) do
       [
         described_class::Backup.new(
-          uuid: "some-uuid",
           num: 5,
-          source_bytes: 220_166_680,
           processed_bytes: 40_703_267,
           succeeded: true,
           schedule: true,
           finished_at: "2018-09-27 04:04:53 +0000"
         ),
         described_class::Backup.new(
-          uuid: "manual-backup-uuid",
           num: 3,
-          source_bytes: 94_190_104,
           processed_bytes: 15_828_892,
           succeeded: true,
           schedule: false,

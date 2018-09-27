@@ -12,16 +12,10 @@ module BackupPublisher
       include Virtus.value_object
 
       values do
-        attribute :uuid, String
         attribute :num, Integer
-
-        attribute :source_bytes, Integer
         attribute :processed_bytes, Integer
-
         attribute :succeeded, Boolean
-
         attribute :schedule, PresenceBoolean
-
         attribute :finished_at, Time
       end
     end
