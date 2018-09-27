@@ -2,22 +2,28 @@
 
 module BackupPublisher
   class HerokuClient
-    class Backup < Dry::Struct::Value
-      transform_keys(&:to_sym)
+    class Backup
+      class PresenceBoolean < Virtus::Attribute
+        def coerce(value)
+          !!value
+        end
+      end
 
-      attribute :uuid, Dry::Types.module::Strict::String
-      attribute :num, Dry::Types.module::Strict::Integer
+      include Virtus.value_object
 
-      attribute :source_bytes, Dry::Types.module::Strict::Integer
-      attribute :processed_bytes, Dry::Types.module::Strict::Integer
+      values do
+        attribute :uuid, String
+        attribute :num, Integer
 
-      attribute :succeeded, Dry::Types.module::Strict::Bool
+        attribute :source_bytes, Integer
+        attribute :processed_bytes, Integer
 
-      attribute(:schedule, Dry::Types.module::Params::Bool
-        .default(false)
-        .constructor { |v| v.is_a?(TrueClass) || v.is_a?(Hash) })
+        attribute :succeeded, Boolean
 
-      attribute :finished_at, Dry::Types.module::Params::Time
+        attribute :schedule, PresenceBoolean
+
+        attribute :finished_at, Time
+      end
     end
 
     attr_accessor :username, :api_key

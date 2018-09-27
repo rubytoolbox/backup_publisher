@@ -53,7 +53,7 @@ RSpec.describe BackupPublisher::HerokuClient do
 
     it "returns the expected backups for given app" do
       expect(client.backups(app).map(&:attributes))
-        .to match_array expected_backups.map(&:attributes)
+        .to match expected_backups.map(&:attributes)
     end
   end
 
