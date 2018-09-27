@@ -1,28 +1,9 @@
 # frozen_string_literal: true
 
+require "backup_publisher/heroku_client/backup"
+
 module BackupPublisher
   class HerokuClient
-    class Backup
-      # We don't care about the actual value, just make a boolean out
-      # of the fact whether this is a truthy value
-      class PresenceBoolean < Virtus::Attribute
-        def coerce(value)
-          !!value
-        end
-      end
-
-      include Virtus.value_object
-
-      values do
-        attribute :app, String
-        attribute :num, Integer
-        attribute :processed_bytes, Integer
-        attribute :succeeded, Boolean
-        attribute :schedule, PresenceBoolean
-        attribute :finished_at, Time
-      end
-    end
-
     attr_accessor :username, :api_key
     private :username=, :api_key=
 
