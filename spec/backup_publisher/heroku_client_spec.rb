@@ -31,6 +31,7 @@ RSpec.describe BackupPublisher::HerokuClient do
     let(:expected_backups) do
       [
         described_class::Backup.new(
+          app: "example",
           num: 5,
           processed_bytes: 40_703_267,
           succeeded: true,
@@ -38,6 +39,7 @@ RSpec.describe BackupPublisher::HerokuClient do
           finished_at: "2018-09-27 04:04:53 +0000"
         ),
         described_class::Backup.new(
+          app: "example",
           num: 3,
           processed_bytes: 15_828_892,
           succeeded: true,
@@ -48,14 +50,15 @@ RSpec.describe BackupPublisher::HerokuClient do
     end
 
     it "returns the expected backups for given app" do
-      expect(client.backups(app).map(&:attributes))
-        .to match expected_backups.map(&:attributes)
+      expect(client.backups(app))
+        .to be == expected_backups
     end
   end
 
   describe "#download_url" do
-    it "returns the download url for given app and backup" do
-      expect(client.download_url(app, 123)).to be == "https://example.com/foo/bar/baz/my-very-long-download-url"
+    it "returns the download url for given backup object" do
+      backup = described_class::Backup.new(app: "example", num: 123)
+      expect(client.download_url(backup)).to be == "https://example.com/foo/bar/baz/my-very-long-download-url"
     end
   end
 end

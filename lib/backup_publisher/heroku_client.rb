@@ -14,6 +14,7 @@ module BackupPublisher
       include Virtus.value_object
 
       values do
+        attribute :app, String
         attribute :num, Integer
         attribute :processed_bytes, Integer
         attribute :succeeded, Boolean
@@ -33,11 +34,11 @@ module BackupPublisher
     def backups(app)
       response = client.get url(app, "transfers")
       handle_response(response)
-        .map { |data| Backup.new data }
+        .map { |data| Backup.new data.merge(app: app) }
     end
 
-    def download_url(app, backup_number)
-      response = client.post url(app, "transfers", backup_number.to_s, "actions", "public-url")
+    def download_url(backup)
+      response = client.post url(backup.app, "transfers", backup.num.to_s, "actions", "public-url")
       handle_response(response)["url"]
     end
 
