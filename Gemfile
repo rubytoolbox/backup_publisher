@@ -7,6 +7,7 @@ ruby File.read(File.join(__dir__, ".ruby-version")).strip
 gem "dotenv"
 gem "http"
 gem "oj"
+gem "rake"
 
 group :development, :test do
   gem "pry"
