@@ -5,6 +5,7 @@ source "https://rubygems.org"
 ruby File.read(File.join(__dir__, ".ruby-version")).strip
 
 gem "dotenv"
+gem "dry-struct"
 gem "http"
 gem "oj"
 gem "rake"

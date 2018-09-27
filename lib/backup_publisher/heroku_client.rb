@@ -2,6 +2,24 @@
 
 module BackupPublisher
   class HerokuClient
+    class Backup < Dry::Struct::Value
+      transform_keys(&:to_sym)
+
+      attribute :uuid, Dry::Types.module::Strict::String
+      attribute :num, Dry::Types.module::Strict::Integer
+
+      attribute :source_bytes, Dry::Types.module::Strict::Integer
+      attribute :processed_bytes, Dry::Types.module::Strict::Integer
+
+      attribute :succeeded, Dry::Types.module::Strict::Bool
+
+      attribute(:schedule, Dry::Types.module::Params::Bool
+        .default(false)
+        .constructor { |v| v.is_a?(TrueClass) || v.is_a?(Hash) })
+
+      attribute :finished_at, Dry::Types.module::Params::Time
+    end
+
     attr_accessor :username, :api_key
     private :username=, :api_key=
 
@@ -12,12 +30,13 @@ module BackupPublisher
 
     def backups(app)
       response = client.get url(app, "transfers")
-      handle_response response
+      handle_response(response)
+        .map { |data| Backup.new data }
     end
 
     def download_url(app, backup_number)
       response = client.post url(app, "transfers", backup_number.to_s, "actions", "public-url")
-      handle_response response
+      handle_response(response)["url"]
     end
 
     private
