@@ -6,8 +6,11 @@ ruby File.read(File.join(__dir__, ".ruby-version")).strip
 
 gem "dotenv"
 gem "http"
+gem "oj"
 
 group :development, :test do
+  gem "pry"
+
   gem "rubocop", require: false
   gem "rubocop-rspec", require: false
 
@@ -21,4 +24,5 @@ end
 group :test do
   gem "rspec"
   gem "simplecov", require: false
+  gem "webmock"
 end

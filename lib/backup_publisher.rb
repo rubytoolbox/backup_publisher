@@ -9,3 +9,5 @@ module BackupPublisher
     end
   end
 end
+
+require "backup_publisher/heroku_client"
