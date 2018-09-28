@@ -7,7 +7,7 @@ module BackupPublisher
     attr_accessor :username, :api_key
     private :username=, :api_key=
 
-    def initialize(username: ENV.fetch("HEROKU_USER"), api_key: ENV.fetch("HEROKU_API_KEY"))
+    def initialize(username: ENV.fetch("PG_HEROKU_USER"), api_key: ENV.fetch("PG_HEROKU_API_KEY"))
       self.username = username
       self.api_key = api_key
     end
