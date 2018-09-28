@@ -15,7 +15,7 @@ module BackupPublisher
       publisher.publish
 
       # Create index website based on files on AWS
-      BackupPublisher::Indexer.new(files: publisher.storage.files.first(7)).zip do |zip_path|
+      BackupPublisher::Indexer.new(files: publisher.storage.files, limit: 7).zip do |zip_path|
         # Deploy said website to netlify
         logger.info "Deploying index site"
         BackupPublisher::Deployer.new.deploy zip_path

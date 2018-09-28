@@ -2,4 +2,8 @@
 
 *A small tool to sync Heroku Postgres backups to S3 and build a static index of available ones*
 
-Work in Progress
+## Goals
+
+## Configuration
+
+## Deployment

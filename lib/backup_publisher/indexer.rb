@@ -5,8 +5,8 @@ module BackupPublisher
     attr_accessor :files
     private :files=
 
-    def initialize(files:)
-      self.files = files.select(&:public_url).sort_by(&:created_at).reverse
+    def initialize(files:, limit: 100)
+      self.files = files.select(&:public_url).sort_by(&:created_at).reverse.first(limit)
     end
 
     def json

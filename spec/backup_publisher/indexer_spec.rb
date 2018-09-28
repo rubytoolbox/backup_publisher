@@ -31,6 +31,11 @@ RSpec.describe BackupPublisher::Indexer do
     it "is sorted by created at DESC" do
       expect(indexer.files).to be == indexer.files.sort_by(&:created_at).reverse
     end
+
+    it "respects a given custom limit" do
+      indexer = described_class.new files: files, limit: 1
+      expect(indexer.files).to be == [files[1]]
+    end
   end
 
   describe "#json" do
