@@ -10,7 +10,7 @@ module BackupPublisher
       self.site = netlify_site
     end
 
-    def deploy(zip_path:)
+    def deploy(zip_path)
       deploy_id = perform_deployment file: File.open(zip_path)
       wait_for_deployment deploy_id
     end

@@ -11,3 +11,8 @@ task console: :environment do
   binding.pry
   # rubocop:enable Lint/Debugger
 end
+
+desc "Sync backups, build index and publish it"
+task process: :environment do
+  BackupPublisher.process!
+end

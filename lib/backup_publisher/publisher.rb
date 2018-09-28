@@ -50,9 +50,14 @@ module BackupPublisher
     end
 
     def exists?(backup)
-      storage.files.find do |file|
+      cached_stored_files.find do |file|
         file.key == backup.filename && file.content_length == backup.processed_bytes
       end
+    end
+
+    # To prevent slow full index fetches we cache the pre-existing files once
+    def cached_stored_files
+      @cached_stored_files ||= storage.files
     end
   end
 end

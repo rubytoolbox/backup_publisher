@@ -38,7 +38,7 @@ RSpec.describe BackupPublisher::Deployer do
     end
 
     it "deploys the given file path to netlify" do
-      expect(deployer.deploy(zip_path: fixture_path("backups_list.json"))).to be true
+      expect(deployer.deploy(fixture_path("backups_list.json"))).to be true
     end
   end
 end

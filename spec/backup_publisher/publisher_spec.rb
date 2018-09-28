@@ -18,7 +18,7 @@ RSpec.describe BackupPublisher::Publisher do
   end
 
   it "does not upload already published files again" do
-    publisher.publish
+    described_class.new.publish
     expect(publisher.storage).not_to receive(:upload)
     publisher.publish
   end
