@@ -30,6 +30,23 @@ module BackupPublisher
       }
     end
 
+    # rubocop:disable Metrics/MethodLength:
+    def zip
+      Dir.mktmpdir do |dir|
+        zip_file_path = File.join dir, "export.zip"
+        Zip::File.open zip_file_path, Zip::File::CREATE do |zipfile|
+          exports.each do |name, content|
+            zipfile.get_output_stream(name) do |f|
+              f.write content
+            end
+          end
+        end
+
+        yield zip_file_path
+      end
+    end
+    # rubocop:enable Metrics/MethodLength:
+
     private
 
     def html_template

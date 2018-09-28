@@ -70,4 +70,20 @@ RSpec.describe BackupPublisher::Indexer do
       }
     end
   end
+
+  describe "#zip" do
+    it "builds a zip file containing the exports" do
+      entries = {}
+      indexer.zip do |zip_path|
+        Zip::File.open(zip_path) do |zip_file|
+          # Handle entries one by one
+          zip_file.each do |entry|
+            entries[entry.name] = entry.get_input_stream.read
+          end
+        end
+      end
+
+      expect(entries).to be == indexer.exports
+    end
+  end
 end
