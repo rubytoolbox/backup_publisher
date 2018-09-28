@@ -18,7 +18,8 @@ RSpec.describe BackupPublisher::Storage do
       described_class::File.new(
         key: "my_file",
         content_length: expected_size,
-        public: true
+        public: true,
+        public_url: "https://databucket.s3-eu-central-1.amazonaws.com/my_file"
       )
     end
 

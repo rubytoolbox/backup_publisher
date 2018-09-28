@@ -8,6 +8,7 @@ module BackupPublisher
       attribute :key, String
       attribute :content_length, Integer
       attribute :public, Boolean
+      attribute :public_url, String
 
       def ==(other)
         attributes == other.attributes
@@ -37,7 +38,8 @@ module BackupPublisher
         File.new(
           key: file.key,
           content_length: file.content_length,
-          public: file.public?
+          public: file.public?,
+          public_url: file.public_url
         )
       end
     end
