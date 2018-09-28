@@ -7,7 +7,6 @@ module BackupPublisher
 
       attribute :key, String
       attribute :content_length, Integer
-      attribute :public, Boolean
       attribute :public_url, String
 
       def ==(other)
