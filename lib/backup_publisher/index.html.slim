@@ -2,25 +2,45 @@ doctype html
 html
   head
     title The Ruby Toolbox - Data Exports
+    link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/
     sass:
       body
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+        font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif
       article
         margin: 0 auto
         max-width: 750px
 
-      header svg
-        max-width: 450px
+      header
+        svg
+          max-width: 450px
+        .content
+          max-width: 450px
+          margin: 0 auto
+
 
       h1
         margin: 0
         padding: 10px 0
 
-      header, footer
-        text-align: center
-
       header, article, footer
-        padding: 35px 20px
+        text-align: center
+        padding: 20px
+
+      a
+        color: #A61414
+        text-decoration: none
+        &:hover
+          color: black
+          text-decoration: underline
+
+      article
+        ul
+          list-style: none
+          margin: 0
+          padding: 0
+          li
+            margin: 0
+            padding: 10px 0
 
   body
     header
@@ -29,11 +49,25 @@ html
 
       h1 Data Exports
 
+      .content
+        a href="./backups.json" This page is also available in JSON Format for scripted usage
+
+        p On this page you can download database dumps of the <a href="https://www.ruby-toolbox.com">Ruby Toolbox</a> production PostgreSQL database.
+        p
+          |
+            The dataset therefore includes all data consumed from the public Rubygems.org and Github.com APIs used for the Ruby Toolbox,
+            which you will hopefully find helpful for research into the Ruby ecosystem as well as for getting started contributing to
+            <a href="https://github.com/rubytoolbox/rubytoolbox">the Ruby Toolbox</a> itself.
+
     article
       ul
         - files.each do |file|
           li
             a href=file.public_url
-              = file.key
+              = file.created_at.utc
     footer
-      | Last update: #{Time.now.utc}
+      p Last update of this page: #{Time.now.utc}
+      p
+        |
+          The source code for the automated backup export process used for this can be
+          found <a href="https://github.com/rubytoolbox/backup_publisher">on GitHub</a>

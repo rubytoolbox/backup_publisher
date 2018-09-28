@@ -52,7 +52,7 @@ RSpec.describe BackupPublisher::Indexer do
     let(:doc) { Nokogiri::HTML.parse(indexer.html) }
 
     it "contains the expected list entries" do
-      expect(doc.css("ul li").map(&:text)).to be == indexer.files.map(&:key)
+      expect(doc.css("ul li").map(&:text)).to be == indexer.files.map { |file| file.created_at.utc.to_s }
     end
 
     # This is only for debugging and styling the actual export ;)
