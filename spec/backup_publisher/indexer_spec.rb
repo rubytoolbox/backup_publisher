@@ -47,4 +47,27 @@ RSpec.describe BackupPublisher::Indexer do
       ]
     end
   end
+
+  describe "#html" do
+    let(:doc) { Nokogiri::HTML.parse(indexer.html) }
+
+    it "contains the expected list entries" do
+      expect(doc.css("ul li").map(&:text)).to be == indexer.files.map(&:key)
+    end
+
+    # This is only for debugging and styling the actual export ;)
+    it "saves the file to temp dir" do
+      tmp_dir = File.join(File.dirname(__FILE__), "..", "..", "tmp")
+      File.open(File.join(tmp_dir, "index.html"), "w+") { |f| f.puts indexer.html }
+    end
+  end
+
+  describe "#exports" do
+    it "contains backups.json and index.html files with expected contents" do
+      expect(indexer.exports).to be == {
+        "backups.json" => indexer.json,
+        "index.html" => indexer.html,
+      }
+    end
+  end
 end

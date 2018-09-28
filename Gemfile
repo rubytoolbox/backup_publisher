@@ -9,6 +9,8 @@ gem "fog-aws"
 gem "http"
 gem "oj"
 gem "rake"
+gem "sass"
+gem "slim"
 gem "virtus"
 
 group :development, :test do
@@ -25,6 +27,7 @@ group :development, :test do
 end
 
 group :test do
+  gem "nokogiri"
   gem "rspec"
   gem "simplecov", require: false
   gem "webmock"
