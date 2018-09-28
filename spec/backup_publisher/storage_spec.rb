@@ -7,6 +7,20 @@ RSpec.describe BackupPublisher::Storage do
     described_class.new
   end
 
+  describe described_class::File do
+    describe "#created_at" do
+      {
+        "data-dump-2018-02-16T20:07:25+00:00.dump" => Time.parse("2018-02-16T20:07:25+00:00"),
+        "data-dump-201///--+00:00.dump" => nil,
+        "nonsense" => nil,
+      }.each do |name, expected_value|
+        it "is #{expected_value.inspect} for #{name.inspect}" do
+          expect(described_class.new(key: name).created_at).to be == expected_value
+        end
+      end
+    end
+  end
+
   it "has a list of files" do
     expect(storage.files).to be_an Array
   end
