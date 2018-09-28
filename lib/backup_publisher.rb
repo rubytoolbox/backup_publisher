@@ -10,6 +10,7 @@ module BackupPublisher
   end
 end
 
+require "backup_publisher/deployer"
 require "backup_publisher/heroku_client"
 require "backup_publisher/indexer"
 require "backup_publisher/publisher"
