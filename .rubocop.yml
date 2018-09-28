@@ -53,3 +53,6 @@ Style/TrailingCommaInHashLiteral:
 # I actually use this a lot with `private :foo=`
 Style/AccessModifierDeclarations:
   Enabled: false
+
+RSpec/ExampleLength:
+  Max: 10

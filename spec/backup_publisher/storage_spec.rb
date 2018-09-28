@@ -3,23 +3,8 @@
 require "spec_helper"
 
 RSpec.describe BackupPublisher::Storage do
-  let(:connection) do
-    config = {
-      provider: "AWS",
-      aws_access_key_id: ENV.fetch("AWS_ACCESS_KEY_ID"),
-      aws_secret_access_key: ENV.fetch("AWS_SECRET_ACCESS_KEY"),
-      region: ENV.fetch("AWS_REGION"),
-    }
-    Fog::Storage.new(config)
-  end
-
   let(:storage) do
     described_class.new
-  end
-
-  before do
-    connection.directories
-              .create key: ENV.fetch("AWS_BUCKET")
   end
 
   it "has a list of files" do

@@ -22,6 +22,7 @@ require "webmock/rspec"
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+# rubocop:disable Metrics/BlockLength
 RSpec.configure do |config|
   def fixture_path(name)
     File.join(File.dirname(__FILE__), "fixtures", name)
@@ -31,9 +32,45 @@ RSpec.configure do |config|
     File.read fixture_path(name)
   end
 
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  def stub_heroku_api_calls!
+    default_headers = {
+      headers: {
+        "Authorization" => "Basic #{Base64.encode64('foo:bar')}".strip,
+      },
+    }
+
+    base_url = "https://postgres-api.heroku.com/client/v11/apps/example/transfers"
+
+    stub_request(:get, base_url)
+      .with(default_headers)
+      .to_return(status: 200, body: fixture("backups_list.json"), headers: {})
+
+    # Fetching of download urls for specific backups
+    [3, 5].each do |number|
+      stub_request(:post, File.join(base_url, "/#{number}/actions/public-url"))
+        .with(default_headers)
+        .to_return(status: 200, body: fixture("backup_download_url.json"), headers: {})
+    end
+
+    # Actual download of a backup
+    stub_request(:get, "https://example.com/foo/bar/baz/my-very-long-download-url")
+      .to_return(status: 200, body: "*" * 23, headers: {})
+  end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
   config.before do
     Fog.mock!
     Fog::Mock.reset
+
+    config = {
+      provider: "AWS",
+      aws_access_key_id: ENV.fetch("AWS_ACCESS_KEY_ID"),
+      aws_secret_access_key: ENV.fetch("AWS_SECRET_ACCESS_KEY"),
+      region: ENV.fetch("AWS_REGION"),
+    }
+    Fog::Storage.new(config).directories
+                .create key: ENV.fetch("AWS_BUCKET")
   end
 
   # rspec-expectations config goes here. You can use an alternate
@@ -118,3 +155,4 @@ RSpec.configure do |config|
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
 end
+# rubocop:enable Metrics/BlockLength

@@ -11,4 +11,5 @@ module BackupPublisher
 end
 
 require "backup_publisher/heroku_client"
+require "backup_publisher/publisher"
 require "backup_publisher/storage"

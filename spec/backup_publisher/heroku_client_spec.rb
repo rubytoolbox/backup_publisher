@@ -3,28 +3,12 @@
 require "spec_helper"
 
 RSpec.describe BackupPublisher::HerokuClient do
-  before do
-    default_headers = {
-      headers: {
-        "Authorization" => "Basic #{Base64.encode64([username, api_key].join(':'))}".strip,
-      },
-    }
+  before { stub_heroku_api_calls! }
 
-    stub_request(:get, "https://postgres-api.heroku.com/client/v11/apps/#{app}/transfers")
-      .with(default_headers)
-      .to_return(status: 200, body: fixture("backups_list.json"), headers: {})
-
-    stub_request(:post, "https://postgres-api.heroku.com/client/v11/apps/#{app}/transfers/123/actions/public-url")
-      .with(default_headers)
-      .to_return(status: 200, body: fixture("backup_download_url.json"), headers: {})
-  end
-
-  let(:username) { "foo" }
-  let(:api_key) { "bar" }
   let(:app) { "example" }
 
   let(:client) do
-    described_class.new username: username, api_key: api_key
+    described_class.new username: "foo", api_key: "bar"
   end
 
   describe "#backups" do
@@ -33,7 +17,7 @@ RSpec.describe BackupPublisher::HerokuClient do
         described_class::Backup.new(
           app: "example",
           num: 5,
-          processed_bytes: 40_703_267,
+          processed_bytes: 23,
           succeeded: true,
           schedule: true,
           finished_at: "2018-09-27 04:04:53 +0000"
@@ -41,7 +25,7 @@ RSpec.describe BackupPublisher::HerokuClient do
         described_class::Backup.new(
           app: "example",
           num: 3,
-          processed_bytes: 15_828_892,
+          processed_bytes: 23,
           succeeded: true,
           schedule: false,
           finished_at: "2018-01-05 22:23:03 +0000"
@@ -57,7 +41,7 @@ RSpec.describe BackupPublisher::HerokuClient do
 
   describe "#download_url" do
     it "returns the download url for given backup object" do
-      backup = described_class::Backup.new(app: "example", num: 123)
+      backup = described_class::Backup.new(app: "example", num: 5)
       expect(client.download_url(backup)).to be == "https://example.com/foo/bar/baz/my-very-long-download-url"
     end
   end
