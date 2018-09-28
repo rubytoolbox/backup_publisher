@@ -63,7 +63,7 @@ html
       ul
         - files.each do |file|
           li
-            a href=file.public_url
+            a href=file.public_url rel="nofollow"
               = file.created_at.utc
     footer
       p Last update of this page: #{Time.now.utc}
