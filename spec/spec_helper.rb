@@ -23,8 +23,17 @@ require "webmock/rspec"
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  def fixture_path(name)
+    File.join(File.dirname(__FILE__), "fixtures", name)
+  end
+
   def fixture(name)
-    File.read File.join(File.dirname(__FILE__), "fixtures", name)
+    File.read fixture_path(name)
+  end
+
+  config.before do
+    Fog.mock!
+    Fog::Mock.reset
   end
 
   # rspec-expectations config goes here. You can use an alternate
