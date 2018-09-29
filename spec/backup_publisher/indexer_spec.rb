@@ -7,13 +7,16 @@ RSpec.describe BackupPublisher::Indexer do
     [
       BackupPublisher::Storage::File.new(
         key: "data-dump-2018-02-16T20:07:25+00:00.dump",
+        content_length: 12_000_000,
         public_url: "https://example.com/foo.dump"
       ),
       BackupPublisher::Storage::File.new(
         key: "data-dump-2018-08-16T20:07:25+00:00.dump",
+        content_length: 12_000_000,
         public_url: "https://example.com/bar.dump"
       ),
       BackupPublisher::Storage::File.new(
+        content_length: 12_000_000,
         key: "data-dump-2018-09-16T20:07:25+00:00.dump"
       ),
     ]
@@ -39,25 +42,32 @@ RSpec.describe BackupPublisher::Indexer do
   end
 
   describe "#json" do
+    # rubocop:disable RSpec/ExampleLength
     it "is the expected json representation" do
       expect(Oj.load(indexer.json)).to be == [
         {
-          "download_url" => "https://example.com/bar.dump",
           "created_at" => "2018-08-16T20:07:25+00:00",
+          "download_url" => "https://example.com/bar.dump",
+          "size" => 12_000_000,
         },
         {
-          "download_url" => "https://example.com/foo.dump",
           "created_at" => "2018-02-16T20:07:25+00:00",
+          "download_url" => "https://example.com/foo.dump",
+          "size" => 12_000_000,
         },
       ]
     end
+    # rubocop:enable RSpec/ExampleLength
   end
 
   describe "#html" do
     let(:doc) { Nokogiri::HTML.parse(indexer.html) }
 
     it "contains the expected list entries" do
-      expect(doc.css("ul li").map(&:text)).to be == indexer.files.map { |file| file.created_at.utc.to_s }
+      expect(doc.css("ul li").map(&:text)).to be == [
+        "2018-08-16 20:07:25 UTC (~11.44 MB)",
+        "2018-02-16 20:07:25 UTC (~11.44 MB)",
+      ]
     end
 
     # This is only for debugging and styling the actual export ;)

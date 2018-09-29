@@ -12,8 +12,9 @@ module BackupPublisher
     def json
       data = files.map do |file|
         {
-          download_url: file.public_url,
           created_at: file.created_at.iso8601,
+          download_url: file.public_url,
+          size: file.content_length,
         }
       end
       Oj.dump(data, mode: :json)

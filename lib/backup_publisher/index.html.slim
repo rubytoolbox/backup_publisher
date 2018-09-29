@@ -66,6 +66,7 @@ html
           li
             a href=file.public_url rel="nofollow"
               = file.created_at.utc
+              | &nbsp;(~#{(file.content_length / 1024.0**2).round(2)} MB)
     footer
       p Last update of this page: #{Time.now.utc}
       p
