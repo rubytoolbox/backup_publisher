@@ -2,27 +2,24 @@ doctype html
 html
   head
     title The Ruby Toolbox - Data Exports
-    link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/
+    link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" /
+    meta content="width=device-width, initial-scale=1" name="viewport" /
     sass:
       body
         font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif
-      article
-        margin: 0 auto
-        max-width: 750px
 
       header
         svg
-          max-width: 450px
-        .content
-          max-width: 450px
-          margin: 0 auto
-
+          width: 300px
+          max-width: 100%
 
       h1
         margin: 0
         padding: 10px 0
 
       header, article, footer
+        margin: 0 auto
+        max-width: 500px
         text-align: center
         padding: 20px
 
@@ -41,6 +38,10 @@ html
           li
             margin: 0
             padding: 10px 0
+
+      footer
+        color: #555
+        font-size: 90%
 
   body
     header
