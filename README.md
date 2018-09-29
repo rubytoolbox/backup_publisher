@@ -1,6 +1,6 @@
 # Backup Publisher [![Build Status](https://travis-ci.org/rubytoolbox/backup_publisher.svg?branch=master)](https://travis-ci.org/rubytoolbox/backup_publisher)
 
-*A small tool to sync Heroku Postgres backups to S3, build a static html and json index of available ones and deploy it to Netlify*
+**A small tool to make Ruby Toolbox production database dumps available**
 
 ## Goals
 
