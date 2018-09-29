@@ -1,4 +1,4 @@
-# Backup Publisher [![Build Status](https://travis-ci.org/rubytoolbox/backup_publisher.svg?branch=master)](https://travis-ci.org/rubytoolbox/backup_publisher)
+# Backup Publisher [![Build Status](https://travis-ci.org/rubytoolbox/backup_publisher.svg?branch=master)](https://travis-ci.org/rubytoolbox/backup_publisher) [![Depfu](https://badges.depfu.com/badges/f6e5ecfa21a76f92c7902f07b0803818/overview.svg)](https://depfu.com/github/rubytoolbox/backup_publisher?project_id=5863)
 
 **A small tool to make Ruby Toolbox production database dumps available**
 
