@@ -6,10 +6,10 @@ module BackupPublisher
     private :app=, :storage=, :heroku=
 
     def initialize(
-        app: ENV.fetch("PG_HEROKU_APP"),
-        storage: BackupPublisher::Storage.new,
-        heroku: BackupPublisher::HerokuClient.new
-      )
+      app: ENV.fetch("PG_HEROKU_APP"),
+      storage: BackupPublisher::Storage.new,
+      heroku: BackupPublisher::HerokuClient.new
+    )
       self.app = app
       self.heroku = heroku
       self.storage = storage

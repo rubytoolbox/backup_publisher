@@ -18,6 +18,7 @@ group :development, :test do
   gem "pry"
 
   gem "rubocop", require: false
+  gem "rubocop-performance", require: false
   gem "rubocop-rspec", require: false
 
   gem "guard-bundler", require: false
