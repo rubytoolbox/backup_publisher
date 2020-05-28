@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 require "simplecov"
-SimpleCov.start { minimum_coverage 100 }
+SimpleCov.start :rails do
+  enable_coverage :branch
+  minimum_coverage line: 100 unless ENV["SKIP_COVERAGE"]
+end
+
 ENV["RACK_ENV"] = "test"
 require File.join(File.dirname(__FILE__), "..", "environment")
 
