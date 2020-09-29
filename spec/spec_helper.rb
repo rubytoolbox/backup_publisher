@@ -36,7 +36,7 @@ RSpec.configure do |config|
     File.read fixture_path(name)
   end
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength
   def stub_heroku_api_calls!
     default_headers = {
       headers: {
@@ -61,7 +61,7 @@ RSpec.configure do |config|
     stub_request(:get, "https://example.com/foo/bar/baz/my-very-long-download-url")
       .to_return(status: 200, body: "*" * 23, headers: {})
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 
   config.before do
     Fog.mock!

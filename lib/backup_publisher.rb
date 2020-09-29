@@ -5,7 +5,7 @@ require "logger"
 module BackupPublisher
   class << self
     def logger
-      @logger ||= Logger.new(STDOUT)
+      @logger ||= Logger.new($stdout)
     end
 
     def process!
