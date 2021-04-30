@@ -17,6 +17,8 @@ gem "virtus"
 group :development, :test do
   gem "pry"
 
+  gem "bundler-audit", require: false
+
   gem "rubocop", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rake", require: false
