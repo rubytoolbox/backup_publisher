@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+desc "Load the environment / application code. Useful as a dependency for other tasks."
 task :environment do
   require File.join(File.dirname(__FILE__), "environment")
 end
