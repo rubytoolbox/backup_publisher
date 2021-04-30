@@ -1,4 +1,4 @@
-# Backup Publisher [![Build Status](https://travis-ci.org/rubytoolbox/backup_publisher.svg?branch=master)](https://travis-ci.org/rubytoolbox/backup_publisher) [![Depfu](https://badges.depfu.com/badges/f6e5ecfa21a76f92c7902f07b0803818/overview.svg)](https://depfu.com/github/rubytoolbox/backup_publisher?project_id=5863)
+# Backup Publisher [![CI](https://github.com/rubytoolbox/backup_publisher/actions/workflows/ci.yml/badge.svg)](https://github.com/rubytoolbox/backup_publisher/actions/workflows/ci.yml) [![Depfu](https://badges.depfu.com/badges/f6e5ecfa21a76f92c7902f07b0803818/overview.svg)](https://depfu.com/github/rubytoolbox/backup_publisher?project_id=5863)
 
 **A small tool to make Ruby Toolbox production database dumps available**
 
@@ -60,7 +60,7 @@ process to get it deployed:
  * Create an app in your preferred region
  * Add the git remote
  * `heroku config:set` all the required configuration options
- * `git push heroku master`
+ * `git push heroku main`
 
 Do not worry about Heroku complaining about the absent Procfile, this app does 
 not have any permanently running processes.
