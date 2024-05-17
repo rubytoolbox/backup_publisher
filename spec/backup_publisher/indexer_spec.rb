@@ -23,7 +23,7 @@ RSpec.describe BackupPublisher::Indexer do
   end
 
   let(:indexer) do
-    described_class.new files: files
+    described_class.new files:
   end
 
   describe "#files" do
@@ -32,19 +32,19 @@ RSpec.describe BackupPublisher::Indexer do
     end
 
     it "is sorted by created at DESC" do
-      expect(indexer.files).to be == indexer.files.sort_by(&:created_at).reverse
+      expect(indexer.files).to eq indexer.files.sort_by(&:created_at).reverse
     end
 
     it "respects a given custom limit" do
-      indexer = described_class.new files: files, limit: 1
-      expect(indexer.files).to be == [files[1]]
+      indexer = described_class.new files:, limit: 1
+      expect(indexer.files).to eq [files[1]]
     end
   end
 
   describe "#json" do
     # rubocop:disable RSpec/ExampleLength
     it "is the expected json representation" do
-      expect(Oj.load(indexer.json)).to be == [
+      expect(Oj.load(indexer.json)).to eq [
         {
           "created_at" => "2018-08-16T20:07:25+00:00",
           "download_url" => "https://example.com/bar.dump",
@@ -64,7 +64,7 @@ RSpec.describe BackupPublisher::Indexer do
     let(:doc) { Nokogiri::HTML.parse(indexer.html) }
 
     it "contains the expected list entries" do
-      expect(doc.css("ul li").map(&:text)).to be == [
+      expect(doc.css("ul li").map(&:text)).to eq [
         "2018-08-16 20:07:25 UTC (~11.44 MB)",
         "2018-02-16 20:07:25 UTC (~11.44 MB)",
       ]
@@ -73,16 +73,18 @@ RSpec.describe BackupPublisher::Indexer do
     # This is only for debugging and styling the actual export ;)
     it "saves the file to temp dir" do
       tmp_dir = File.join(File.dirname(__FILE__), "..", "..", "tmp")
-      File.open(File.join(tmp_dir, "index.html"), "w+") { |f| f.puts indexer.html }
+      destination = File.join(tmp_dir, "index.html")
+      File.open(destination, "w+") { |f| f.puts indexer.html }
+      expect(File.read(destination)).to eq "#{indexer.html}\n"
     end
   end
 
   describe "#exports" do
     it "contains backups.json and index.html files with expected contents" do
-      expect(indexer.exports).to be == {
+      expect(indexer.exports).to eq(
         "backups.json" => indexer.json,
-        "index.html" => indexer.html,
-      }
+        "index.html" => indexer.html
+      )
     end
   end
 
@@ -98,7 +100,7 @@ RSpec.describe BackupPublisher::Indexer do
         end
       end
 
-      expect(entries).to be == indexer.exports
+      expect(entries).to eq indexer.exports
     end
   end
 end

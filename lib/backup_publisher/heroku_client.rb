@@ -15,7 +15,7 @@ module BackupPublisher
     def backups(app)
       response = client.get url(app, "transfers")
       handle_response(response)
-        .map { |data| Backup.new data.merge(app: app) }
+        .map { |data| Backup.new data.merge(app:) }
     end
 
     def download_url(backup)
@@ -35,8 +35,8 @@ module BackupPublisher
       HTTP.basic_auth(user: username, pass: api_key)
     end
 
-    def url(*args)
-      File.join base_url, *args
+    def url(*)
+      File.join(base_url, *)
     end
 
     def base_url

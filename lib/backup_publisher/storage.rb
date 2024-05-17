@@ -34,7 +34,7 @@ module BackupPublisher
         provider: "AWS",
         aws_access_key_id: access_key,
         aws_secret_access_key: secret,
-        region: region
+        region:
       )
       self.bucket = connection.directories.get bucket_name
     end
@@ -52,7 +52,7 @@ module BackupPublisher
 
     def upload(key:, reader:, expected_size:)
       file = bucket.files.create(
-        key: key,
+        key:,
         body: reader,
         public: true
       )

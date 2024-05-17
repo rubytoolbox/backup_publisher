@@ -1,4 +1,5 @@
 .env*
+.sass-cache
 coverage
 log
 tmp

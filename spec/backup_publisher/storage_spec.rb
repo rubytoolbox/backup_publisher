@@ -15,7 +15,7 @@ RSpec.describe BackupPublisher::Storage do
         "nonsense" => nil,
       }.each do |name, expected_value|
         it "is #{expected_value.inspect} for #{name.inspect}" do
-          expect(described_class.new(key: name).created_at).to be == expected_value
+          expect(described_class.new(key: name).created_at).to eq expected_value
         end
       end
     end
@@ -37,7 +37,7 @@ RSpec.describe BackupPublisher::Storage do
     end
 
     it "uploads given IO under specified name" do
-      expect { storage.upload key: "my_file", reader: file, expected_size: expected_size }
+      expect { storage.upload key: "my_file", reader: file, expected_size: }
         .to change(storage, :files)
         .from([])
         .to([expected_file])
