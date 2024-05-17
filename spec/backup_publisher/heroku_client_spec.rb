@@ -35,14 +35,14 @@ RSpec.describe BackupPublisher::HerokuClient do
 
     it "returns the expected backups for given app" do
       expect(client.backups(app))
-        .to be == expected_backups
+        .to eq expected_backups
     end
   end
 
   describe "#download_url" do
     it "returns the download url for given backup object" do
       backup = described_class::Backup.new(app: "example", num: 5)
-      expect(client.download_url(backup)).to be == "https://example.com/foo/bar/baz/my-very-long-download-url"
+      expect(client.download_url(backup)).to eq "https://example.com/foo/bar/baz/my-very-long-download-url"
     end
   end
 end

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module BackupPublisher
+  FileList = Struct.new(:files)
+
   class Indexer
     attr_accessor :files
     private :files=
@@ -21,7 +23,7 @@ module BackupPublisher
     end
 
     def html
-      html_template.render OpenStruct.new(files: files)
+      html_template.render FileList.new(files)
     end
 
     def exports

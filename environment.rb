@@ -5,6 +5,6 @@ $LOAD_PATH.unshift File.join(File.dirname(__FILE__), "lib")
 $stdout.sync = $stderr.sync = true
 require "bundler"
 Bundler.require :default, ENV.fetch("RACK_ENV")
-Dotenv.load ".env", ".env.#{ENV['RACK_ENV']}"
+Dotenv.load ".env", ".env.#{ENV.fetch('RACK_ENV', nil)}"
 
 require "backup_publisher"

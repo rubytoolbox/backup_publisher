@@ -8,9 +8,11 @@ RSpec.describe BackupPublisher do
       expect(described_class.logger).to be_a Logger
     end
 
+    # rubocop:disable RSpec/IdenticalEqualityAssertion
     it "is a memoized instance" do
-      expect(described_class.logger.object_id).to be == described_class.logger.object_id
+      expect(described_class.logger.object_id).to eq described_class.logger.object_id
     end
+    # rubocop:enable RSpec/IdenticalEqualityAssertion
   end
 
   describe ".process!" do

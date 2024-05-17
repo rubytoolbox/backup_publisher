@@ -27,11 +27,11 @@ RSpec.describe BackupPublisher::HerokuClient::Backup do
 
   describe "filename" do
     it "is the expected value for scheduled backup" do
-      expect(scheduled_backup.filename).to be == "example-2018-09-27T04:04:53+00:00.dump"
+      expect(scheduled_backup.filename).to eq "example-2018-09-27T04:04:53+00:00.dump"
     end
 
     it "is the expected value for manual backup" do
-      expect(manual_backup.filename).to be == "example-2018-01-05T22:23:03+00:00.dump"
+      expect(manual_backup.filename).to eq "example-2018-01-05T22:23:03+00:00.dump"
     end
   end
 end
